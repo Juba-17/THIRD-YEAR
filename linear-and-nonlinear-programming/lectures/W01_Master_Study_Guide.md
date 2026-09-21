@@ -28,7 +28,7 @@ By the end of this chapter you should be able to:
 5. Distinguish active vs. inactive inequality constraints, and explain why equality constraints are always active.
 6. State and prove the **necessary condition** for a local extremum of a single-variable function, and explain its three limitations (non-differentiability, endpoints, converse failure).
 7. State and prove the **sufficient condition** for a local extremum of a single-variable function using higher-order derivatives, and apply it to classify stationary points.
-8. State and prove the **necessary condition** ($\nabla f(\mathbf{x}^{*}) = 0$) and the **sufficient condition** (Hessian positive definite) for a local minimum of a multivariable function.
+8. State and prove the **necessary condition** ($\nabla f(\mathbf{x}^{\ast}) = 0$) and the **sufficient condition** (Hessian positive definite) for a local minimum of a multivariable function.
 9. Determine whether a symmetric matrix is positive definite, positive semi-definite, or indefinite, and connect this to local minima, local maxima, and saddle points.
 10. Classify an optimization problem into its correct family: Linear Programming, Unconstrained Optimization, Convex Optimization, Quadratic Optimization, Geometric Programming, Integer Programming, Stochastic Programming, Multi-objective Optimization, or Modern (heuristic) Optimization.
 11. Connect every one of the above ideas to a concrete AI/ML example: neural network training, SVM margin maximization, and the bias–variance/generalization trade-off in regression.
@@ -364,20 +364,20 @@ where $C(\mathbf{x})$ represents the whole set of constraints (note: here $C(\ma
 **From the Lecture:**
 
 $$
-p^{*} = \inf\{ f(\mathbf{x}) \mid h_i(\mathbf{x})=0\ \forall i,\ g_j(\mathbf{x}) \le 0\ \forall j\}
+p^{\ast} = \inf\{ f(\mathbf{x}) \mid h_i(\mathbf{x})=0\ \forall i,\ g_j(\mathbf{x}) \le 0\ \forall j\}
 $$
 
 $$
-\mathbf{x}^{*} \in X_{opt}, \quad X_{opt} = \{\mathbf{x} \mid h_i(\mathbf{x})=0\ \forall i,\ g_j(\mathbf{x})\le 0\ \forall j,\ f(\mathbf{x})=p^{*}\}
+\mathbf{x}^{\ast} \in X_{opt}, \quad X_{opt} = \{\mathbf{x} \mid h_i(\mathbf{x})=0\ \forall i,\ g_j(\mathbf{x})\le 0\ \forall j,\ f(\mathbf{x})=p^{\ast}\}
 $$
 
-**Mathematical Meaning:** $p^{*}$ is the *best achievable value* of the objective function over the feasible set — the infimum ("greatest lower bound"), which is used instead of "minimum" because in some problems the exact minimum value may not actually be attained by any feasible point (e.g., it is only approached in a limit). $X_{opt}$ is the *set* of all feasible points that actually achieve this best value $p^{*}$ — there could be one such point, many (e.g., a whole edge or region), or, in the infimum case, none at all.
+**Mathematical Meaning:** $p^{\ast}$ is the *best achievable value* of the objective function over the feasible set — the infimum ("greatest lower bound"), which is used instead of "minimum" because in some problems the exact minimum value may not actually be attained by any feasible point (e.g., it is only approached in a limit). $X_{opt}$ is the *set* of all feasible points that actually achieve this best value $p^{\ast}$ — there could be one such point, many (e.g., a whole edge or region), or, in the infimum case, none at all.
 
 > **From the Lecture — reflection prompt:** *"Think about Maximization problem?!"*
 >
 > **[UNCLEAR IN SOURCE — DO NOT INFER: the lecture poses this as an open question without providing the worked answer.]**
 >
-> **Additional Explanation (answering the spirit of the prompt):** Every maximization problem can be converted to the minimization form given above via the identity $\max_{\mathbf{x}} f(\mathbf{x}) = -\min_{\mathbf{x}} [-f(\mathbf{x})]$. So $p^{*}_{\max} = -\inf\{-f(\mathbf{x})\} = \sup\{f(\mathbf{x})\}$, and all of the machinery above (feasible set, active constraints, etc.) applies unchanged — you simply negate the objective, solve the equivalent minimization problem, and negate the optimal value back at the end. This is why most optimization textbooks (including the lecture's own References list) state theory exclusively in terms of minimization without loss of generality.
+> **Additional Explanation (answering the spirit of the prompt):** Every maximization problem can be converted to the minimization form given above via the identity $\max_{\mathbf{x}} f(\mathbf{x}) = -\min_{\mathbf{x}} [-f(\mathbf{x})]$. So $p^{\ast}_{\max} = -\inf\{-f(\mathbf{x})\} = \sup\{f(\mathbf{x})\}$, and all of the machinery above (feasible set, active constraints, etc.) applies unchanged — you simply negate the objective, solve the equivalent minimization problem, and negate the optimal value back at the end. This is why most optimization textbooks (including the lecture's own References list) state theory exclusively in terms of minimization without loss of generality.
 
 ---
 
@@ -397,7 +397,7 @@ $$
 
 ### Why It Matters
 
-**Additional Explanation:** Whether a constraint is active turns out to be central to constrained optimization theory (developed further in this course, e.g., in the KKT conditions named later in the lecture). Roughly: an *inactive* inequality constraint has no bearing on the local behavior of the optimal point (you could remove it and the local optimum wouldn't move), whereas an *active* inequality constraint behaves, locally, just like an equality constraint — it genuinely restricts the directions in which you're allowed to move away from $\mathbf{x}^{*}$.
+**Additional Explanation:** Whether a constraint is active turns out to be central to constrained optimization theory (developed further in this course, e.g., in the KKT conditions named later in the lecture). Roughly: an *inactive* inequality constraint has no bearing on the local behavior of the optimal point (you could remove it and the local optimum wouldn't move), whereas an *active* inequality constraint behaves, locally, just like an equality constraint — it genuinely restricts the directions in which you're allowed to move away from $\mathbf{x}^{\ast}$.
 
 ---
 
@@ -406,8 +406,8 @@ $$
 ### Definition
 
 **From the Lecture:**
-- $f(x)$ has a **local (relative) minimum** at $x=x^{*}$ if $f(x^{*}) \le f(x^{*}+h)$ for all sufficiently small positive and negative $h$ (i.e., in a neighborhood of $x^{*}$, as $h \to 0$).
-- $f(x)$ has a **global (absolute) minimum** at $x^{*}$ if $f(x^{*}) \le f(x)$ for **all** $x \in \text{dom}(f)$.
+- $f(x)$ has a **local (relative) minimum** at $x=x^{\ast}$ if $f(x^{\ast}) \le f(x^{\ast}+h)$ for all sufficiently small positive and negative $h$ (i.e., in a neighborhood of $x^{\ast}$, as $h \to 0$).
+- $f(x)$ has a **global (absolute) minimum** at $x^{\ast}$ if $f(x^{\ast}) \le f(x)$ for **all** $x \in \text{dom}(f)$.
 
 ### Mathematical Meaning
 
@@ -439,56 +439,56 @@ $$
 
 ### Statement (From the Lecture)
 
-> **Theorem (Necessary condition).** If $f(x)$ is defined on $a \le x \le b$ and has a local (relative) minimum at $x=x^{*}$, where $a<x^{*}<b$, and if $f'(x^{*})$ exists, then $f'(x^{*})=0$.
+> **Theorem (Necessary condition).** If $f(x)$ is defined on $a \le x \le b$ and has a local (relative) minimum at $x=x^{\ast}$, where $a<x^{\ast}<b$, and if $f'(x^{\ast})$ exists, then $f'(x^{\ast})=0$.
 
 ### Full Proof (From the Lecture, Explained Step-by-Step)
 
 **Step 1 — Set up the derivative as a limit.** By definition,
 
 $$
-f'(x^{*}) = \lim_{h\to 0} \frac{f(x^{*}+h)-f(x^{*})}{h}
+f'(x^{\ast}) = \lim_{h\to 0} \frac{f(x^{\ast}+h)-f(x^{\ast})}{h}
 $$
 
-and we are *given* that this limit exists (that is the hypothesis "$f'(x^{*})$ exists"). The goal of the proof is to show that this limit must equal exactly zero.
+and we are *given* that this limit exists (that is the hypothesis "$f'(x^{\ast})$ exists"). The goal of the proof is to show that this limit must equal exactly zero.
 
-**Step 2 — Use the local-minimum property.** Because $x^{*}$ is a local minimum, we know
+**Step 2 — Use the local-minimum property.** Because $x^{\ast}$ is a local minimum, we know
 
 $$
-f(x^{*}) \le f(x^{*}+h)
+f(x^{\ast}) \le f(x^{\ast}+h)
 $$
 
-for every $h$ sufficiently close to $0$ (this is exactly the definition from Concept 7). Rearranged, this says the numerator $f(x^{*}+h)-f(x^{*}) \ge 0$ for all small $h$, whether $h$ is positive or negative.
+for every $h$ sufficiently close to $0$ (this is exactly the definition from Concept 7). Rearranged, this says the numerator $f(x^{\ast}+h)-f(x^{\ast}) \ge 0$ for all small $h$, whether $h$ is positive or negative.
 
 **Step 3 — Take the one-sided limit as $h \to 0^{+}$ (from the right).** For $h>0$, dividing a non-negative numerator by a *positive* $h$ keeps the sign non-negative:
 
 $$
-\frac{f(x^{*}+h)-f(x^{*})}{h} \ge 0 \quad (h>0) \implies \lim_{h\to 0^{+}}(\cdot) \ge 0 \implies f'(x^{*}) \ge 0
+\frac{f(x^{\ast}+h)-f(x^{\ast})}{h} \ge 0 \quad (h>0) \implies \lim_{h\to 0^{+}}(\cdot) \ge 0 \implies f'(x^{\ast}) \ge 0
 $$
 
 **Step 4 — Take the one-sided limit as $h \to 0^{-}$ (from the left).** For $h<0$, dividing the same non-negative numerator by a *negative* $h$ flips the sign to non-positive:
 
 $$
-\frac{f(x^{*}+h)-f(x^{*})}{h} \le 0 \quad (h<0) \implies \lim_{h\to 0^{-}}(\cdot) \le 0 \implies f'(x^{*}) \le 0
+\frac{f(x^{\ast}+h)-f(x^{\ast})}{h} \le 0 \quad (h<0) \implies \lim_{h\to 0^{-}}(\cdot) \le 0 \implies f'(x^{\ast}) \le 0
 $$
 
-**Step 5 — Combine.** Since the two-sided limit $f'(x^{*})$ exists by hypothesis, both one-sided limits must equal it. Step 3 forces $f'(x^{*}) \ge 0$ and Step 4 forces $f'(x^{*}) \le 0$. The only number satisfying both $\ge 0$ **and** $\le 0$ simultaneously is $0$. Hence:
+**Step 5 — Combine.** Since the two-sided limit $f'(x^{\ast})$ exists by hypothesis, both one-sided limits must equal it. Step 3 forces $f'(x^{\ast}) \ge 0$ and Step 4 forces $f'(x^{\ast}) \le 0$. The only number satisfying both $\ge 0$ **and** $\le 0$ simultaneously is $0$. Hence:
 
 $$
-f'(x^{*}) = 0 \qquad \blacksquare
+f'(x^{\ast}) = 0 \qquad \blacksquare
 $$
 
 **Additional Explanation — why this argument is elegant:** The proof doesn't use any calculus "tricks" beyond the definition of the derivative and simple sign reasoning. It shows the necessary condition is really just a consequence of *consistency*: if the slope "from the left" and the slope "from the right" of the minimum point are forced to have opposite signs (or be zero) by the minimality property, and the two-sided derivative exists at all, then those slopes must agree — and the only value they can agree on is zero.
 
 ### Notes / Limitations (From the Lecture, Explained)
 
-1. **The same conclusion holds for a local maximum** (the lecture leaves this as a "try it yourself" exercise). **Additional Explanation:** the proof is symmetric — flip the local-minimum inequality to $f(x^{*}) \ge f(x^{*}+h)$, and every $\ge$/$\le$ in Steps 3–4 flips accordingly, still forcing $f'(x^{*})=0$ in the end.
-2. **The theorem does not apply if $f'(x^{*})$ does not exist.** Example: $f(x)=|x|$ has a global (and local) minimum at $x=0$, but $f'(0)$ does not exist (the left-hand slope is $-1$, the right-hand slope is $+1$, so no two-sided derivative exists) — the theorem's *hypothesis* is violated, so it says nothing here, even though $x=0$ genuinely is the minimum.
+1. **The same conclusion holds for a local maximum** (the lecture leaves this as a "try it yourself" exercise). **Additional Explanation:** the proof is symmetric — flip the local-minimum inequality to $f(x^{\ast}) \ge f(x^{\ast}+h)$, and every $\ge$/$\le$ in Steps 3–4 flips accordingly, still forcing $f'(x^{\ast})=0$ in the end.
+2. **The theorem does not apply if $f'(x^{\ast})$ does not exist.** Example: $f(x)=|x|$ has a global (and local) minimum at $x=0$, but $f'(0)$ does not exist (the left-hand slope is $-1$, the right-hand slope is $+1$, so no two-sided derivative exists) — the theorem's *hypothesis* is violated, so it says nothing here, even though $x=0$ genuinely is the minimum.
 3. **The theorem does not apply at endpoints.** At $x=a$ or $x=b$, only a *one-sided* derivative can be defined (you cannot approach from both directions while staying in $[a,b]$), so the two-sided-limit argument of Steps 3–5 above cannot be completed — an endpoint minimum need not have zero one-sided derivative.
-4. **The converse is false: $f'(x^{*})=0$ does NOT imply $x^{*}$ is a local min or max.** Example: $f(x)=x^3$ has $f'(0)=0$, but $x=0$ is neither a local minimum nor a local maximum of $f$ — it is an **inflection point** (the function is momentarily "flat" but continues increasing on both sides).
+4. **The converse is false: $f'(x^{\ast})=0$ does NOT imply $x^{\ast}$ is a local min or max.** Example: $f(x)=x^3$ has $f'(0)=0$, but $x=0$ is neither a local minimum nor a local maximum of $f$ — it is an **inflection point** (the function is momentarily "flat" but continues increasing on both sides).
 
 ### Common Misconceptions
 
-- **Misconception:** "If $f'(x^{*})=0$, then $x^{*}$ must be a local min or max." **Correction:** False — see Note 4 above ($f(x)=x^3$). A point where $f'(x^{*})=0$ is only called a **stationary point**; it requires a *further* test (the sufficient condition, Concept 10 below) to classify it as min, max, or neither.
+- **Misconception:** "If $f'(x^{\ast})=0$, then $x^{\ast}$ must be a local min or max." **Correction:** False — see Note 4 above ($f(x)=x^3$). A point where $f'(x^{\ast})=0$ is only called a **stationary point**; it requires a *further* test (the sufficient condition, Concept 10 below) to classify it as min, max, or neither.
 - **Misconception:** "The necessary condition always applies." **Correction:** It requires the derivative to exist and the point to be interior (not an endpoint) — see Notes 2 and 3.
 
 ---
@@ -534,8 +534,8 @@ f''(x) = 240x^3 - 540x^2 + 240x = 60x(4x^2 - 9x + 4)
 $$
 
 **Step 4 — Evaluate $f''$ at each stationary point.**
-- $f''(1) = 60(1)(4-9+4) = 60(-1) = -60 < 0 \implies$ local **maximum** at $x=1$ (matches the sufficient-condition theorem of Concept 10: $n=2$, even, $f^{(2)}(x^{*})<0$).
-- $f''(2) = 60(2)(16-18+4) = 120(2) = 240 > 0 \implies$ local **minimum** at $x=2$ ($n=2$, even, $f^{(2)}(x^{*})>0$).
+- $f''(1) = 60(1)(4-9+4) = 60(-1) = -60 < 0 \implies$ local **maximum** at $x=1$ (matches the sufficient-condition theorem of Concept 10: $n=2$, even, $f^{(2)}(x^{\ast})<0$).
+- $f''(2) = 60(2)(16-18+4) = 120(2) = 240 > 0 \implies$ local **minimum** at $x=2$ ($n=2$, even, $f^{(2)}(x^{\ast})>0$).
 - $f''(0) = 0$, so the second derivative test is inconclusive at $x=0$; we must go to the next derivative.
 
 **Step 5 — Compute the third derivative and evaluate at $x=0$.**
@@ -566,9 +566,9 @@ $$
 
 ### Statement (From the Lecture)
 
-> **Theorem (Sufficient Condition).** Let $f'(x^{*}) = \dots = f^{(n-1)}(x^{*}) = 0$, but $f^{(n)}(x^{*}) \ne 0$. Then $f(x^{*})$ is:
-> - a **minimum** value of $f$ if $f^{(n)}(x^{*}) > 0$ and $n$ is **even**.
-> - a **maximum** value of $f$ if $f^{(n)}(x^{*}) < 0$ and $n$ is **even**.
+> **Theorem (Sufficient Condition).** Let $f'(x^{\ast}) = \dots = f^{(n-1)}(x^{\ast}) = 0$, but $f^{(n)}(x^{\ast}) \ne 0$. Then $f(x^{\ast})$ is:
+> - a **minimum** value of $f$ if $f^{(n)}(x^{\ast}) > 0$ and $n$ is **even**.
+> - a **maximum** value of $f$ if $f^{(n)}(x^{\ast}) < 0$ and $n$ is **even**.
 > - **neither** a max nor a min if $n$ is **odd**.
 
 ### Proof (From the Lecture, as far as given)
@@ -576,26 +576,26 @@ $$
 **From the Lecture:** By applying Taylor's theorem,
 
 $$
-f(x^{*}+h) - f(x^{*}) = \frac{h^n}{n!} f^{(n)}(x^{*} + \theta h)
+f(x^{\ast}+h) - f(x^{\ast}) = \frac{h^n}{n!} f^{(n)}(x^{\ast} + \theta h)
 $$
 
 > **[UNCLEAR IN SOURCE — DO NOT INFER: the lecture's proof stops immediately after stating this Taylor-expansion identity. No further algebraic steps, sign analysis, or concluding statement are provided in the source slides.]**
 
 **Additional Explanation — completing the reasoning the lecture leaves implicit:**
 
-This equation is the **Taylor expansion of $f$ around $x^{*}$ with the Lagrange form of the remainder**, using the fact that *all* derivative orders below $n$ vanish at $x^{*}$ (so every term of the expansion up to order $n-1$ disappears, leaving only the order-$n$ term, evaluated not exactly at $x^{*}$ but at some intermediate point $x^{*}+\theta h$ for some $\theta \in (0,1)$ — this is the "Mean Value" flavor of Taylor's theorem).
+This equation is the **Taylor expansion of $f$ around $x^{\ast}$ with the Lagrange form of the remainder**, using the fact that *all* derivative orders below $n$ vanish at $x^{\ast}$ (so every term of the expansion up to order $n-1$ disappears, leaving only the order-$n$ term, evaluated not exactly at $x^{\ast}$ but at some intermediate point $x^{\ast}+\theta h$ for some $\theta \in (0,1)$ — this is the "Mean Value" flavor of Taylor's theorem).
 
-To finish the proof, reason about the **sign** of the right-hand side, $\frac{h^n}{n!}f^{(n)}(x^{*}+\theta h)$, for $h$ small:
+To finish the proof, reason about the **sign** of the right-hand side, $\frac{h^n}{n!}f^{(n)}(x^{\ast}+\theta h)$, for $h$ small:
 
-- Because $f^{(n)}$ is continuous and $f^{(n)}(x^{*})\ne 0$, for $h$ small enough $f^{(n)}(x^{*}+\theta h)$ has the **same sign** as $f^{(n)}(x^{*})$ (continuity — a continuous nonzero function keeps its sign in a small enough neighborhood).
-- **If $n$ is even:** $h^n \ge 0$ for *every* real $h$ (positive or negative), since an even power of any real number is non-negative. So the sign of the whole right-hand side is controlled *only* by the sign of $f^{(n)}(x^{*})$:
-  - If $f^{(n)}(x^{*}) > 0$: the right-hand side is $\ge 0$ for all small $h$, i.e., $f(x^{*}+h) \ge f(x^{*})$ for all small $h$ — this is precisely the definition of a **local minimum**.
-  - If $f^{(n)}(x^{*}) < 0$: the right-hand side is $\le 0$ for all small $h$, i.e., $f(x^{*}+h) \le f(x^{*})$ — a **local maximum**.
-- **If $n$ is odd:** $h^n$ **changes sign** depending on whether $h>0$ or $h<0$ (e.g., $h^3>0$ for $h>0$ but $h^3<0$ for $h<0$). So the right-hand side is positive on one side of $x^{*}$ and negative on the other, meaning $f(x^{*}+h)-f(x^{*})$ changes sign as $h$ crosses zero — $f$ is *larger* than $f(x^{*})$ on one side and *smaller* on the other. This means $x^{*}$ is **neither** a local min nor a local max — it is an inflection point (exactly what happened at $x=0$ in Concept 9's worked example, where $n=3$).
+- Because $f^{(n)}$ is continuous and $f^{(n)}(x^{\ast})\ne 0$, for $h$ small enough $f^{(n)}(x^{\ast}+\theta h)$ has the **same sign** as $f^{(n)}(x^{\ast})$ (continuity — a continuous nonzero function keeps its sign in a small enough neighborhood).
+- **If $n$ is even:** $h^n \ge 0$ for *every* real $h$ (positive or negative), since an even power of any real number is non-negative. So the sign of the whole right-hand side is controlled *only* by the sign of $f^{(n)}(x^{\ast})$:
+  - If $f^{(n)}(x^{\ast}) > 0$: the right-hand side is $\ge 0$ for all small $h$, i.e., $f(x^{\ast}+h) \ge f(x^{\ast})$ for all small $h$ — this is precisely the definition of a **local minimum**.
+  - If $f^{(n)}(x^{\ast}) < 0$: the right-hand side is $\le 0$ for all small $h$, i.e., $f(x^{\ast}+h) \le f(x^{\ast})$ — a **local maximum**.
+- **If $n$ is odd:** $h^n$ **changes sign** depending on whether $h>0$ or $h<0$ (e.g., $h^3>0$ for $h>0$ but $h^3<0$ for $h<0$). So the right-hand side is positive on one side of $x^{\ast}$ and negative on the other, meaning $f(x^{\ast}+h)-f(x^{\ast})$ changes sign as $h$ crosses zero — $f$ is *larger* than $f(x^{\ast})$ on one side and *smaller* on the other. This means $x^{\ast}$ is **neither** a local min nor a local max — it is an inflection point (exactly what happened at $x=0$ in Concept 9's worked example, where $n=3$).
 
 ### Intuition
 
-**Additional Explanation:** This theorem generalizes the familiar "second derivative test" from introductory calculus ($f''(x^{*})>0 \Rightarrow$ min, $f''(x^{*})<0\Rightarrow$ max) to the case where the second derivative is *also* zero. It tells you: keep differentiating until you hit a nonzero derivative; the *parity* (even/odd) of that derivative's order tells you whether the curve behaves symmetrically around $x^{*}$ (even — a genuine extremum) or antisymmetrically (odd — an inflection/saddle-like flat spot).
+**Additional Explanation:** This theorem generalizes the familiar "second derivative test" from introductory calculus ($f''(x^{\ast})>0 \Rightarrow$ min, $f''(x^{\ast})<0\Rightarrow$ max) to the case where the second derivative is *also* zero. It tells you: keep differentiating until you hit a nonzero derivative; the *parity* (even/odd) of that derivative's order tells you whether the curve behaves symmetrically around $x^{\ast}$ (even — a genuine extremum) or antisymmetrically (odd — an inflection/saddle-like flat spot).
 
 ### AI / Machine Learning Connection
 
@@ -607,7 +607,7 @@ To finish the proof, reason about the **sign** of the right-hand side, $\frac{h^
 
 ### Statement (From the Lecture)
 
-> **Theorem (Necessary Condition).** If $f(\mathbf{x})$ has a local min (max) at $\mathbf{x}=\mathbf{x}^{*}$, and if the first partial derivatives of $f(\mathbf{x})$ exist at $\mathbf{x}^{*}$, then $\nabla f(\mathbf{x}^{*}) = 0$.
+> **Theorem (Necessary Condition).** If $f(\mathbf{x})$ has a local min (max) at $\mathbf{x}=\mathbf{x}^{\ast}$, and if the first partial derivatives of $f(\mathbf{x})$ exist at $\mathbf{x}^{\ast}$, then $\nabla f(\mathbf{x}^{\ast}) = 0$.
 
 ### The Gradient — Mathematical Meaning
 
@@ -624,27 +624,27 @@ It has the same dimension $n$ as the decision variable $\mathbf{x}$. Geometrical
 **Step 1 — Write the multivariable first-order Taylor expansion.**
 
 $$
-f(\mathbf{x}^{*}+\mathbf{h}) - f(\mathbf{x}^{*}) = \mathbf{h}^T \nabla f(\mathbf{x}^{*}) + R_1(\mathbf{x}^{*}, \mathbf{h})
+f(\mathbf{x}^{\ast}+\mathbf{h}) - f(\mathbf{x}^{\ast}) = \mathbf{h}^T \nabla f(\mathbf{x}^{\ast}) + R_1(\mathbf{x}^{\ast}, \mathbf{h})
 $$
 
-where $\mathbf{h}^T \nabla f(\mathbf{x}^{*})$ is the dot product between the perturbation direction $\mathbf{h}$ and the gradient (this is the multivariable analogue of the single-variable first-order term $h\, f'(x^{*})$), and $R_1$ collects all higher-order (quadratic and beyond) terms.
+where $\mathbf{h}^T \nabla f(\mathbf{x}^{\ast})$ is the dot product between the perturbation direction $\mathbf{h}$ and the gradient (this is the multivariable analogue of the single-variable first-order term $h\, f'(x^{\ast})$), and $R_1$ collects all higher-order (quadratic and beyond) terms.
 
 **Step 2 — Argue about dominance of the linear term for small $\mathbf{h}$.**
-**From the Lecture:** "The 1st order terms of $\mathbf{h}$ dominate the higher orders for small $\mathbf{h}$." **Additional Explanation:** As $\|\mathbf{h}\| \to 0$, the remainder $R_1(\mathbf{x}^{*},\mathbf{h})$ shrinks *faster* than $\mathbf{h}^T \nabla f(\mathbf{x}^{*})$ (formally, $R_1 = o(\|\mathbf{h}\|)$, i.e. it vanishes faster than linearly), so for sufficiently small $\mathbf{h}$, the **sign** of the left-hand side $f(\mathbf{x}^{*}+\mathbf{h})-f(\mathbf{x}^{*})$ is controlled entirely by the sign of the linear term $\mathbf{h}^T\nabla f(\mathbf{x}^{*})$, exactly as in the lecture's statement: "The sign of LHS depends on the sign of 1st term (component-wise)."
+**From the Lecture:** "The 1st order terms of $\mathbf{h}$ dominate the higher orders for small $\mathbf{h}$." **Additional Explanation:** As $\|\mathbf{h}\| \to 0$, the remainder $R_1(\mathbf{x}^{\ast},\mathbf{h})$ shrinks *faster* than $\mathbf{h}^T \nabla f(\mathbf{x}^{\ast})$ (formally, $R_1 = o(\|\mathbf{h}\|)$, i.e. it vanishes faster than linearly), so for sufficiently small $\mathbf{h}$, the **sign** of the left-hand side $f(\mathbf{x}^{\ast}+\mathbf{h})-f(\mathbf{x}^{\ast})$ is controlled entirely by the sign of the linear term $\mathbf{h}^T\nabla f(\mathbf{x}^{\ast})$, exactly as in the lecture's statement: "The sign of LHS depends on the sign of 1st term (component-wise)."
 
-**Step 3 — Argue by contradiction.** Suppose $\nabla f(\mathbf{x}^{*}) \ne 0$. Then you can choose a direction $\mathbf{h}$ such that $\mathbf{h}^T\nabla f(\mathbf{x}^{*}) < 0$ (simply pick $\mathbf{h}$ pointing opposite to $\nabla f(\mathbf{x}^{*})$, i.e. $\mathbf{h}=-\epsilon\,\nabla f(\mathbf{x}^{*})$ for small $\epsilon>0$; then $\mathbf{h}^T\nabla f(\mathbf{x}^{*}) = -\epsilon\|\nabla f(\mathbf{x}^{*})\|^2 < 0$). By Step 2, this would make $f(\mathbf{x}^{*}+\mathbf{h}) - f(\mathbf{x}^{*}) < 0$ for small enough $\mathbf{h}$ — meaning you could *decrease* $f$ below $f(\mathbf{x}^{*})$ by moving in this direction, contradicting the assumption that $\mathbf{x}^{*}$ is a local minimum. (You could also pick the *opposite* direction $\mathbf{h}=+\epsilon\nabla f(\mathbf{x}^{*})$ to get $f(\mathbf{x}^{*}+\mathbf{h}) > f(\mathbf{x}^{*})$, contradicting a local max, if that is instead the assumption.)
+**Step 3 — Argue by contradiction.** Suppose $\nabla f(\mathbf{x}^{\ast}) \ne 0$. Then you can choose a direction $\mathbf{h}$ such that $\mathbf{h}^T\nabla f(\mathbf{x}^{\ast}) < 0$ (simply pick $\mathbf{h}$ pointing opposite to $\nabla f(\mathbf{x}^{\ast})$, i.e. $\mathbf{h}=-\epsilon\,\nabla f(\mathbf{x}^{\ast})$ for small $\epsilon>0$; then $\mathbf{h}^T\nabla f(\mathbf{x}^{\ast}) = -\epsilon\|\nabla f(\mathbf{x}^{\ast})\|^2 < 0$). By Step 2, this would make $f(\mathbf{x}^{\ast}+\mathbf{h}) - f(\mathbf{x}^{\ast}) < 0$ for small enough $\mathbf{h}$ — meaning you could *decrease* $f$ below $f(\mathbf{x}^{\ast})$ by moving in this direction, contradicting the assumption that $\mathbf{x}^{\ast}$ is a local minimum. (You could also pick the *opposite* direction $\mathbf{h}=+\epsilon\nabla f(\mathbf{x}^{\ast})$ to get $f(\mathbf{x}^{\ast}+\mathbf{h}) > f(\mathbf{x}^{\ast})$, contradicting a local max, if that is instead the assumption.)
 
-**Step 4 — Conclude.** Since assuming $\nabla f(\mathbf{x}^{*})\ne 0$ leads to a contradiction (we found a direction that strictly *decreases* $f$, so $\mathbf{x}^{*}$ could not have been a local min after all), it must be that:
+**Step 4 — Conclude.** Since assuming $\nabla f(\mathbf{x}^{\ast})\ne 0$ leads to a contradiction (we found a direction that strictly *decreases* $f$, so $\mathbf{x}^{\ast}$ could not have been a local min after all), it must be that:
 
 $$
-\nabla f(\mathbf{x}^{*}) = 0 \qquad \blacksquare
+\nabla f(\mathbf{x}^{\ast}) = 0 \qquad \blacksquare
 $$
 
-**Additional Explanation:** This is the direct multivariable generalization of Concept 8's proof: instead of using only two directions ($h>0$ and $h<0$ along a single axis), the multivariable proof shows that *every possible direction* $\mathbf{h}$ must fail to strictly improve $f$ near a local minimum — and the only vector $\nabla f(\mathbf{x}^{*})$ for which *no* direction can produce a strict decrease is the zero vector.
+**Additional Explanation:** This is the direct multivariable generalization of Concept 8's proof: instead of using only two directions ($h>0$ and $h<0$ along a single axis), the multivariable proof shows that *every possible direction* $\mathbf{h}$ must fail to strictly improve $f$ near a local minimum — and the only vector $\nabla f(\mathbf{x}^{\ast})$ for which *no* direction can produce a strict decrease is the zero vector.
 
 ### Geometric Interpretation
 
-At an unconstrained local minimum, the "tangent plane" to the graph of $f$ is horizontal in every direction simultaneously — there is no "uphill/downhill" slope left in any direction, which is exactly what $\nabla f(\mathbf{x}^{*})=0$ encodes.
+At an unconstrained local minimum, the "tangent plane" to the graph of $f$ is horizontal in every direction simultaneously — there is no "uphill/downhill" slope left in any direction, which is exactly what $\nabla f(\mathbf{x}^{\ast})=0$ encodes.
 
 ---
 
@@ -662,30 +662,30 @@ It is symmetric (assuming $f$ is twice continuously differentiable, by Clairaut'
 
 ### Statement (From the Lecture)
 
-> **Theorem (Sufficient Condition).** A sufficient condition for a stationary point $\mathbf{x}^{*}$ to be a local min is that the Hessian matrix $H(\mathbf{x}^{*})=\nabla^2 f(\mathbf{x}^{*})$ is **positive definite (PD)**: $H(\mathbf{x}^{*}) \succ 0$.
+> **Theorem (Sufficient Condition).** A sufficient condition for a stationary point $\mathbf{x}^{\ast}$ to be a local min is that the Hessian matrix $H(\mathbf{x}^{\ast})=\nabla^2 f(\mathbf{x}^{\ast})$ is **positive definite (PD)**: $H(\mathbf{x}^{\ast}) \succ 0$.
 
 ### Proof (From the Lecture, Explained Step-by-Step)
 
 **Step 1 — Write the second-order multivariable Taylor expansion.**
 
 $$
-f(\mathbf{x}^{*}+\mathbf{h}) - f(\mathbf{x}^{*}) = \mathbf{h}^T \nabla f(\mathbf{x}^{*}) + \frac{1}{2}\mathbf{h}^T \nabla^2 f(\mathbf{x}^{*}+\theta\mathbf{h})\,\mathbf{h}, \qquad 0<\theta<1
+f(\mathbf{x}^{\ast}+\mathbf{h}) - f(\mathbf{x}^{\ast}) = \mathbf{h}^T \nabla f(\mathbf{x}^{\ast}) + \frac{1}{2}\mathbf{h}^T \nabla^2 f(\mathbf{x}^{\ast}+\theta\mathbf{h})\,\mathbf{h}, \qquad 0<\theta<1
 $$
 
-This is the multivariable analogue of the single-variable Taylor theorem with remainder used in Concept 10, now carried out to second order, with the quadratic term evaluated at an intermediate point $\mathbf{x}^{*}+\theta\mathbf{h}$.
+This is the multivariable analogue of the single-variable Taylor theorem with remainder used in Concept 10, now carried out to second order, with the quadratic term evaluated at an intermediate point $\mathbf{x}^{\ast}+\theta\mathbf{h}$.
 
-**Step 2 — Apply the fact that $\mathbf{x}^{*}$ is a stationary point.** By Concept 11, at a stationary point $\nabla f(\mathbf{x}^{*}) = 0$, so the first-order term vanishes entirely:
+**Step 2 — Apply the fact that $\mathbf{x}^{\ast}$ is a stationary point.** By Concept 11, at a stationary point $\nabla f(\mathbf{x}^{\ast}) = 0$, so the first-order term vanishes entirely:
 
 $$
-f(\mathbf{x}^{*}+\mathbf{h}) - f(\mathbf{x}^{*}) = \frac{1}{2}\mathbf{h}^T \nabla^2 f(\mathbf{x}^{*}+\theta\mathbf{h})\,\mathbf{h}, \qquad 0<\theta<1
+f(\mathbf{x}^{\ast}+\mathbf{h}) - f(\mathbf{x}^{\ast}) = \frac{1}{2}\mathbf{h}^T \nabla^2 f(\mathbf{x}^{\ast}+\theta\mathbf{h})\,\mathbf{h}, \qquad 0<\theta<1
 $$
 
-**Step 3 — Require the right-hand side to be positive.** **From the Lecture:** "To be a local min, the RHS should be $>0$." **Additional Explanation:** if we can guarantee $\frac{1}{2}\mathbf{h}^T\nabla^2f(\mathbf{x}^{*}+\theta\mathbf{h})\mathbf{h} > 0$ for every small nonzero $\mathbf{h}$, then $f(\mathbf{x}^{*}+\mathbf{h}) > f(\mathbf{x}^{*})$ for every small perturbation — precisely the definition of a strict local minimum. By continuity of $\nabla^2 f$, if $H(\mathbf{x}^{*}) = \nabla^2 f(\mathbf{x}^{*})$ is positive definite, then $\nabla^2 f(\mathbf{x}^{*}+\theta\mathbf{h})$ is *also* positive definite for $\mathbf{h}$ small enough (positive definiteness is an open condition preserved under small perturbations), guaranteeing the needed sign.
+**Step 3 — Require the right-hand side to be positive.** **From the Lecture:** "To be a local min, the RHS should be $>0$." **Additional Explanation:** if we can guarantee $\frac{1}{2}\mathbf{h}^T\nabla^2f(\mathbf{x}^{\ast}+\theta\mathbf{h})\mathbf{h} > 0$ for every small nonzero $\mathbf{h}$, then $f(\mathbf{x}^{\ast}+\mathbf{h}) > f(\mathbf{x}^{\ast})$ for every small perturbation — precisely the definition of a strict local minimum. By continuity of $\nabla^2 f$, if $H(\mathbf{x}^{\ast}) = \nabla^2 f(\mathbf{x}^{\ast})$ is positive definite, then $\nabla^2 f(\mathbf{x}^{\ast}+\theta\mathbf{h})$ is *also* positive definite for $\mathbf{h}$ small enough (positive definiteness is an open condition preserved under small perturbations), guaranteeing the needed sign.
 
 **Step 4 — Conclude.**
 
 $$
-H(\mathbf{x}^{*}) = \nabla^2 f(\mathbf{x}^{*}) \succ 0 \qquad \blacksquare
+H(\mathbf{x}^{\ast}) = \nabla^2 f(\mathbf{x}^{\ast}) \succ 0 \qquad \blacksquare
 $$
 
 ### Positive Definite Matrices — Checkable Conditions (From the Lecture)
@@ -717,7 +717,7 @@ $$
 ### The Semi-Definite Case (From the Lecture)
 
 $$
-H(\mathbf{x}^{*}) = \nabla^2 f(\mathbf{x}^{*}) \succeq 0
+H(\mathbf{x}^{\ast}) = \nabla^2 f(\mathbf{x}^{\ast}) \succeq 0
 $$
 
 **From the Lecture:** when the Hessian is only positive **semi**-definite (i.e., $\mathbf{h}^TA\mathbf{h}\ge 0$ for all $\mathbf{h}$, but possibly $=0$ for some nonzero $\mathbf{h}$) rather than strictly positive definite, the sufficient-condition test of Concept 12 is inconclusive, and you must **investigate the higher-order derivatives in the Taylor series expansion** — this is the direct multivariable analogue of Concept 10's approach for single-variable functions, where a zero second derivative forced you to check the third, fourth, etc.
@@ -725,7 +725,7 @@ $$
 ### Saddle Points (From the Lecture)
 
 **From the Lecture:**
-- In the case of a function of **two** variables, the Hessian matrix may be **neither positive nor negative definite** at $(x^{*},y^{*})$ — this situation defines a **saddle point**.
+- In the case of a function of **two** variables, the Hessian matrix may be **neither positive nor negative definite** at $(x^{\ast},y^{\ast})$ — this situation defines a **saddle point**.
 - Saddle points may also exist for functions of **more than two** variables.
 
 **Example (From the Lecture):**
@@ -969,7 +969,7 @@ where $\alpha_1,\alpha_2$ are constants indicating the relative importance of ea
 - ✔ RMSProp
 - ✔ ADAM
 
-**Additional Explanation — direct connection back to Concepts 11–13:** Every algorithm in this list is, at its core, an iterative procedure for finding a point $\mathbf{x}^{*}$ (the network weights) satisfying (approximately) the necessary condition of Concept 11, $\nabla f(\mathbf{x}^{*})\approx 0$, for a loss function $f$. Plain **Gradient Descent** takes repeated steps $\mathbf{x}_{k+1} = \mathbf{x}_k - \eta \nabla f(\mathbf{x}_k)$ (moving in the direction of steepest descent, $-\nabla f$, as defined in Concept 11's discussion of the gradient). **Stochastic** and **Minibatch** Gradient Descent replace the exact gradient with a noisy estimate computed from a random subset of the training data (connecting to the Stochastic Programming idea of Concept 16.7). **Momentum, AdaGrad, RMSProp, and ADAM** are all refinements that adapt the step size and/or direction using accumulated gradient history, in order to converge faster and more robustly than plain gradient descent — but none of them change the underlying target: driving the gradient toward zero at a (hopefully good) local minimum of the loss surface.
+**Additional Explanation — direct connection back to Concepts 11–13:** Every algorithm in this list is, at its core, an iterative procedure for finding a point $\mathbf{x}^{\ast}$ (the network weights) satisfying (approximately) the necessary condition of Concept 11, $\nabla f(\mathbf{x}^{\ast})\approx 0$, for a loss function $f$. Plain **Gradient Descent** takes repeated steps $\mathbf{x}_{k+1} = \mathbf{x}_k - \eta \nabla f(\mathbf{x}_k)$ (moving in the direction of steepest descent, $-\nabla f$, as defined in Concept 11's discussion of the gradient). **Stochastic** and **Minibatch** Gradient Descent replace the exact gradient with a noisy estimate computed from a random subset of the training data (connecting to the Stochastic Programming idea of Concept 16.7). **Momentum, AdaGrad, RMSProp, and ADAM** are all refinements that adapt the step size and/or direction using accumulated gradient history, in order to converge faster and more robustly than plain gradient descent — but none of them change the underlying target: driving the gradient toward zero at a (hopefully good) local minimum of the loss surface.
 
 ---
 
@@ -987,7 +987,7 @@ $$
 - **Dimension:** same as $\mathbf{x}$, i.e., $n \times 1$.
 - **Directional meaning:** points in the direction of steepest ascent; $-\nabla f$ points in the direction of steepest descent.
 - **Level-set relationship:** always orthogonal (normal) to the level curve/surface of $f$ passing through $\mathbf{x}$.
-- **Role in optimization:** the necessary condition for an unconstrained local extremum is $\nabla f(\mathbf{x}^{*})=0$ (Concept 11).
+- **Role in optimization:** the necessary condition for an unconstrained local extremum is $\nabla f(\mathbf{x}^{\ast})=0$ (Concept 11).
 
 ### The Hessian
 
@@ -1009,9 +1009,9 @@ $$
 
 ### Taylor Expansions Used in This Chapter
 
-- **Single variable, order $n$:** $f(x^{*}+h)-f(x^{*}) = \dfrac{h^n}{n!}f^{(n)}(x^{*}+\theta h)$, when $f'(x^{*})=\dots=f^{(n-1)}(x^{*})=0$.
-- **Multivariable, first order:** $f(\mathbf{x}^{*}+\mathbf{h})-f(\mathbf{x}^{*}) = \mathbf{h}^T\nabla f(\mathbf{x}^{*}) + R_1(\mathbf{x}^{*},\mathbf{h})$.
-- **Multivariable, second order (at a stationary point):** $f(\mathbf{x}^{*}+\mathbf{h})-f(\mathbf{x}^{*}) = \frac{1}{2}\mathbf{h}^T\nabla^2f(\mathbf{x}^{*}+\theta\mathbf{h})\,\mathbf{h}$.
+- **Single variable, order $n$:** $f(x^{\ast}+h)-f(x^{\ast}) = \dfrac{h^n}{n!}f^{(n)}(x^{\ast}+\theta h)$, when $f'(x^{\ast})=\dots=f^{(n-1)}(x^{\ast})=0$.
+- **Multivariable, first order:** $f(\mathbf{x}^{\ast}+\mathbf{h})-f(\mathbf{x}^{\ast}) = \mathbf{h}^T\nabla f(\mathbf{x}^{\ast}) + R_1(\mathbf{x}^{\ast},\mathbf{h})$.
+- **Multivariable, second order (at a stationary point):** $f(\mathbf{x}^{\ast}+\mathbf{h})-f(\mathbf{x}^{\ast}) = \frac{1}{2}\mathbf{h}^T\nabla^2f(\mathbf{x}^{\ast}+\theta\mathbf{h})\,\mathbf{h}$.
 
 ---
 
@@ -1021,14 +1021,14 @@ $$
 
 1. Compute $f'(x)$.
 2. Solve $f'(x)=0$ to find all candidate stationary points.
-3. At each candidate $x^{*}$, compute $f''(x^{*})$.
-   - If $f''(x^{*})>0$: local minimum. Stop.
-   - If $f''(x^{*})<0$: local maximum. Stop.
-   - If $f''(x^{*})=0$: continue to the next derivative.
-4. Compute successive derivatives $f'''(x^{*}), f^{(4)}(x^{*}),\dots$ until you find the first nonzero one, $f^{(n)}(x^{*})$.
+3. At each candidate $x^{\ast}$, compute $f''(x^{\ast})$.
+   - If $f''(x^{\ast})>0$: local minimum. Stop.
+   - If $f''(x^{\ast})<0$: local maximum. Stop.
+   - If $f''(x^{\ast})=0$: continue to the next derivative.
+4. Compute successive derivatives $f'''(x^{\ast}), f^{(4)}(x^{\ast}),\dots$ until you find the first nonzero one, $f^{(n)}(x^{\ast})$.
 5. Apply the sufficient-condition theorem (Concept 10):
-   - $n$ even, $f^{(n)}(x^{*})>0$ → local min.
-   - $n$ even, $f^{(n)}(x^{*})<0$ → local max.
+   - $n$ even, $f^{(n)}(x^{\ast})>0$ → local min.
+   - $n$ even, $f^{(n)}(x^{\ast})<0$ → local max.
    - $n$ odd → inflection point (neither).
 6. To determine **global** extrema on a closed interval $[a,b]$, also evaluate $f$ at the endpoints $a,b$ (recall: the necessary condition does not apply there) and compare all candidate values.
 
@@ -1036,8 +1036,8 @@ $$
 
 1. Compute $\nabla f(\mathbf{x})$.
 2. Solve $\nabla f(\mathbf{x})=0$ (a system of $n$ equations) to find all candidate stationary points.
-3. At each candidate $\mathbf{x}^{*}$, compute the Hessian $H(\mathbf{x}^{*}) = \nabla^2 f(\mathbf{x}^{*})$.
-4. Test the definiteness of $H(\mathbf{x}^{*})$ (via eigenvalues or leading principal minors):
+3. At each candidate $\mathbf{x}^{\ast}$, compute the Hessian $H(\mathbf{x}^{\ast}) = \nabla^2 f(\mathbf{x}^{\ast})$.
+4. Test the definiteness of $H(\mathbf{x}^{\ast})$ (via eigenvalues or leading principal minors):
    - PD → local minimum.
    - ND → local maximum.
    - Indefinite → saddle point.
@@ -1059,7 +1059,7 @@ $$
 | Concept A | Concept B | Key Distinction |
 |---|---|---|
 | **Local optimum** | **Global optimum** | Local: best among nearby points only. Global: best over the *entire* domain. Every global optimum is local, not conversely. |
-| **Necessary condition** ($f'(x^{*})=0$ / $\nabla f=0$) | **Sufficient condition** (sign of higher derivative / Hessian definiteness) | Necessary: *must* hold at any extremum, but satisfying it alone doesn't guarantee an extremum exists there ($x^3$ counterexample). Sufficient: if it holds, an extremum is *guaranteed*. |
+| **Necessary condition** ($f'(x^{\ast})=0$ / $\nabla f=0$) | **Sufficient condition** (sign of higher derivative / Hessian definiteness) | Necessary: *must* hold at any extremum, but satisfying it alone doesn't guarantee an extremum exists there ($x^3$ counterexample). Sufficient: if it holds, an extremum is *guaranteed*. |
 | **Active constraint** | **Inactive constraint** | Active: $g_j(\mathbf{x})=0$, the constraint boundary is touched. Inactive: $g_j(\mathbf{x})<0$, there is slack. Equality constraints are always active. |
 | **Equality constraint** ($h_i(\mathbf{x})=0$) | **Inequality constraint** ($g_j(\mathbf{x})\le 0$) | Equality: no slack allowed, always active. Inequality: slack allowed; may be active or inactive depending on the point. |
 | **Positive definite (PD)** | **Positive semi-definite (PSD)** | PD: $\mathbf{h}^TA\mathbf{h}>0$ for *all* $\mathbf{h}\ne0$ (strict). PSD: $\ge 0$ (equality permitted for some $\mathbf{h}\ne 0$) — weaker, and inconclusive for classifying extrema without further tests. |
@@ -1074,14 +1074,14 @@ $$
 
 | Optimization Concept | ML / AI Application |
 |---|---|
-| Unconstrained multivariable optimization, $\nabla f(\mathbf{x}^{*})=0$ | Training a neural network: minimizing loss $L(\theta)$ over weights $\theta$ (Example 3a) |
+| Unconstrained multivariable optimization, $\nabla f(\mathbf{x}^{\ast})=0$ | Training a neural network: minimizing loss $L(\theta)$ over weights $\theta$ (Example 3a) |
 | Quadratic Optimization | SVM optimal-margin hyperplane (Example 3b) |
 | Objective/Feasible-region/Local-vs-global | Bias–variance trade-off: minimizing training error vs. generalization error (Example 3c) |
 | Regularization (Additional Explanation, Example 3c) | Penalizing model complexity to steer the optimizer toward "Optimal Capacity" rather than zero training loss |
 | Positive definite Hessian at a minimum | Confirms a trained model's loss surface is locally "bowl-shaped" around a found solution |
 | Convex Optimization | Guarantees that *any* local minimum found (e.g., via gradient descent on a convex loss like ordinary least-squares regression) is the *global* minimum |
 | Stochastic Programming (expected-value objectives) | Motivates Stochastic Gradient Descent: minimizing $\mathbb{E}[\text{loss}]$ using random mini-batch estimates |
-| Deep Learning Algorithms list (GD, SGD, Momentum, AdaGrad, RMSProp, ADAM) | The family of iterative first-order methods that all target $\nabla f(\mathbf{x}^{*})\approx 0$ |
+| Deep Learning Algorithms list (GD, SGD, Momentum, AdaGrad, RMSProp, ADAM) | The family of iterative first-order methods that all target $\nabla f(\mathbf{x}^{\ast})\approx 0$ |
 | Modern/heuristic methods (GA, SA, PSO, ACO, ANN, Fuzzy) | Used for non-differentiable or highly non-convex search problems (e.g., neural architecture search, hyperparameter tuning) where classical calculus-based conditions cannot be directly applied |
 | Geometric Programming | Device sizing in circuit design (Example 4) — a convex-after-transform engineering optimization problem, structurally related to certain resource-allocation problems in ML systems (e.g., power/latency-constrained model deployment) |
 
@@ -1089,16 +1089,16 @@ $$
 
 # Common Mistakes / Exam Traps
 
-1. **Believing $f'(x^{*})=0$ (or $\nabla f(\mathbf{x}^{*})=0$) always means an extremum.** *Why it's wrong:* this is only the **necessary** condition; $f(x)=x^3$ at $x=0$ is the standard counterexample (Concept 8, Note 4). *Fix:* always follow up with the sufficient condition (higher derivative test / Hessian definiteness).
-2. **Applying the necessary-condition theorem where the derivative doesn't exist.** *Why it's wrong:* the theorem's hypothesis requires $f'(x^{*})$ to exist; $f(x)=|x|$ has a minimum at $x=0$ without a defined derivative there (Concept 8, Note 2). *Fix:* check differentiability before invoking the theorem.
+1. **Believing $f'(x^{\ast})=0$ (or $\nabla f(\mathbf{x}^{\ast})=0$) always means an extremum.** *Why it's wrong:* this is only the **necessary** condition; $f(x)=x^3$ at $x=0$ is the standard counterexample (Concept 8, Note 4). *Fix:* always follow up with the sufficient condition (higher derivative test / Hessian definiteness).
+2. **Applying the necessary-condition theorem where the derivative doesn't exist.** *Why it's wrong:* the theorem's hypothesis requires $f'(x^{\ast})$ to exist; $f(x)=|x|$ has a minimum at $x=0$ without a defined derivative there (Concept 8, Note 2). *Fix:* check differentiability before invoking the theorem.
 3. **Applying the necessary-condition theorem at an interval endpoint.** *Why it's wrong:* only a one-sided derivative can be defined there, so the two-sided-limit proof breaks down (Concept 8, Note 3). *Fix:* separately check endpoint function values when finding a global extremum on a closed interval.
-4. **Stopping the higher-order derivative test the first time a derivative is nonzero, without checking whether earlier derivatives were also zero.** *Why it's wrong:* the sufficient-condition theorem (Concept 10) requires *all* derivatives from order $1$ to $n-1$ to be zero and only the $n$-th to be nonzero; skipping this bookkeeping can misidentify $n$'s parity. *Fix:* always differentiate in order, checking each one at $x^{*}$ before moving to the next.
+4. **Stopping the higher-order derivative test the first time a derivative is nonzero, without checking whether earlier derivatives were also zero.** *Why it's wrong:* the sufficient-condition theorem (Concept 10) requires *all* derivatives from order $1$ to $n-1$ to be zero and only the $n$-th to be nonzero; skipping this bookkeeping can misidentify $n$'s parity. *Fix:* always differentiate in order, checking each one at $x^{\ast}$ before moving to the next.
 5. **Confusing positive semi-definite with positive definite.** *Why it's wrong:* PSD only guarantees $\mathbf{h}^TA\mathbf{h}\ge 0$, which is not strong enough to guarantee a strict local minimum (Concept 13); the sufficient-condition theorem requires strict PD. *Fix:* when the Hessian test gives $\succeq 0$ (some eigenvalue exactly $0$), explicitly state the test is inconclusive and further analysis (higher-order Taylor terms) is needed.
 6. **Confusing convex functions with convex sets.** *Why it's wrong:* they are related but distinct definitions (a convex function's *graph* behaves in a particular way; a convex set's *points* behave in a particular way) — see the Comparisons table above. *Fix:* always specify whether you're describing a function or a set when using the word "convex."
 7. **Assuming touching a constraint boundary automatically makes a point infeasible.** *Why it's wrong:* a "bound acceptable point" (Concept 5's design-space diagram) sits exactly on a constraint boundary yet is fully feasible — the constraint is merely *active*, not violated. *Fix:* feasibility depends on satisfying *every* constraint ($=0$ for equality, $\le 0$ for inequality), not on distance from any one boundary.
 8. **Forgetting that equality constraints are always active.** *Why it's wrong:* by definition $h_i(\mathbf{x})=0$ permits no slack, so at every feasible point it is (trivially) satisfied with equality — there is no "inactive" state for an equality constraint (Concept 6). *Fix:* when reasoning about active-constraint sets at a point, automatically include *all* equality constraints, and only check inequality constraints individually for activity.
 9. **Treating "local minimum" and "global minimum" as interchangeable.** *Why it's wrong:* outside of convex problems, a function can have many local minima of differing depths (Concept 7's Diagram 1) — a local minimum found by, e.g., gradient descent, need not be the best possible value overall. *Fix:* only claim global optimality when you have additional structure (e.g., convexity) supporting it, or when you've exhaustively compared all candidates (as in a bounded, enumerable problem like Example 1).
-10. **Misreading the sign convention when converting a maximization problem.** *Why it's wrong:* forgetting to negate the *optimal value* (not just the objective function) when converting $\max f(\mathbf{x})$ into $-\min[-f(\mathbf{x})]$ form. *Fix:* remember $p^{*}_{\max} = -p^{*}_{\min(-f)}$; the sign flips on the final numeric answer too, not just inside the optimization.
+10. **Misreading the sign convention when converting a maximization problem.** *Why it's wrong:* forgetting to negate the *optimal value* (not just the objective function) when converting $\max f(\mathbf{x})$ into $-\min[-f(\mathbf{x})]$ form. *Fix:* remember $p^{\ast}_{\max} = -p^{\ast}_{\min(-f)}$; the sign flips on the final numeric answer too, not just inside the optimization.
 
 ---
 
@@ -1117,9 +1117,9 @@ $$
 
 ## What You Must Be Able to Derive
 
-- The proof that $f'(x^{*})=0$ is necessary for a single-variable local extremum (Concept 8).
+- The proof that $f'(x^{\ast})=0$ is necessary for a single-variable local extremum (Concept 8).
 - The sign-based completion of the sufficient-condition proof using the parity of $n$ (Concept 10).
-- The proof that $\nabla f(\mathbf{x}^{*})=0$ is necessary for a multivariable local extremum (Concept 11).
+- The proof that $\nabla f(\mathbf{x}^{\ast})=0$ is necessary for a multivariable local extremum (Concept 11).
 - The proof that a PD Hessian at a stationary point is sufficient for a local minimum (Concept 12).
 - The direct-substitution reduction of an equality-constrained problem to an unconstrained one (Example 2/Procedure C).
 
@@ -1144,14 +1144,14 @@ $$
 
 **Conceptual:**
 1. State the necessary condition theorem for a local minimum of a single-variable function, including all hypotheses. Why is each hypothesis required?
-2. Explain, with an example, why $f'(x^{*})=0$ does not guarantee $x^{*}$ is a local extremum.
+2. Explain, with an example, why $f'(x^{\ast})=0$ does not guarantee $x^{\ast}$ is a local extremum.
 3. Define "active constraint" and explain why every equality constraint is active at every feasible point.
 4. What structural property distinguishes a Linear Program from a general Nonlinear Program?
 5. Explain, in your own words, why convex optimization problems are especially desirable in practice.
 
 **Mathematical:**
-6. Prove that if $f(\mathbf{x})$ has a local minimum at $\mathbf{x}^{*}$ and $\nabla f(\mathbf{x}^{*})$ exists, then $\nabla f(\mathbf{x}^{*})=0$.
-7. State the sufficient-condition theorem for a stationary point of a single-variable function to be a local minimum, maximum, or neither, in terms of the first nonzero derivative $f^{(n)}(x^{*})$.
+6. Prove that if $f(\mathbf{x})$ has a local minimum at $\mathbf{x}^{\ast}$ and $\nabla f(\mathbf{x}^{\ast})$ exists, then $\nabla f(\mathbf{x}^{\ast})=0$.
+7. State the sufficient-condition theorem for a stationary point of a single-variable function to be a local minimum, maximum, or neither, in terms of the first nonzero derivative $f^{(n)}(x^{\ast})$.
 8. Given $A=\begin{pmatrix}4&0\\0&-9\end{pmatrix}$, classify this matrix (PD/ND/PSD/indefinite) and state what this implies about a stationary point with this Hessian.
 
 **Problem-Solving:**
@@ -1165,7 +1165,7 @@ $$
 
 ## Answer Key
 
-1. See Concept 8 statement: requires $f$ defined on $[a,b]$, local min at interior point $x^{*}\in(a,b)$, and $f'(x^{*})$ exists. The interior requirement is needed because the proof uses a two-sided limit (Concept 8, Note 3); differentiability is needed because the proof manipulates $f'(x^{*})$ directly as a well-defined limit (Note 2).
+1. See Concept 8 statement: requires $f$ defined on $[a,b]$, local min at interior point $x^{\ast}\in(a,b)$, and $f'(x^{\ast})$ exists. The interior requirement is needed because the proof uses a two-sided limit (Concept 8, Note 3); differentiability is needed because the proof manipulates $f'(x^{\ast})$ directly as a well-defined limit (Note 2).
 2. See Concept 8, Note 4: $f(x)=x^3$, $f'(0)=0$, but $f$ is increasing through $x=0$ (an inflection point), not a local extremum.
 3. See Concept 6: active means $g_j(\mathbf{x})=0$; equality constraints permit no slack by definition, so $h_i(\mathbf{x})=0$ holds exactly at every feasible point, making them trivially always active.
 4. See Concept 16.1: in LP, *every* function (objective and all constraints) must be affine; NLP allows at least one nonlinear function.
@@ -1187,14 +1187,14 @@ $$
 |---|---|---|---|---|
 | 1 | $\min_{\mathbf{x}} f(\mathbf{x})$ s.t. $h_i(\mathbf{x})=0,\ i\in I$; $g_j(\mathbf{x})\le0,\ j\in J$; $\mathbf{x}\in C$ | $f$: objective; $h_i$: equality constraints; $g_j$: inequality constraints; $C$: ambient set | General constrained optimization | The universal template every other problem type in this chapter is a special case of |
 | 2 | $F=\{\mathbf{x}\in C\mid h_i(\mathbf{x})=0\ \forall i,\ g_j(\mathbf{x})\le0\ \forall j\}$ | $F$: feasible set | Any constrained problem | The set of all valid candidate solutions |
-| 3 | $p^{*}=\inf\{f(\mathbf{x})\mid \mathbf{x}\in F\}$ | $p^{*}$: optimal value | Any constrained problem | Best achievable objective value |
+| 3 | $p^{\ast}=\inf\{f(\mathbf{x})\mid \mathbf{x}\in F\}$ | $p^{\ast}$: optimal value | Any constrained problem | Best achievable objective value |
 | 4 | $g_j(\mathbf{x})=0$ (active) / $g_j(\mathbf{x})<0$ (inactive) | $g_j$: $j$-th inequality constraint | Feasible $\mathbf{x}$ | Whether a constraint boundary is "touched" |
-| 5 | $f(x^{*})\le f(x^{*}+h)$, small $h$ | $x^{*}$: candidate point | Local min test (1 variable) | Definition of local minimum |
-| 6 | $f'(x^{*})=0$ | $f'$: first derivative | Interior point, $f'$ exists, local extremum | Necessary condition (1 variable) |
-| 7 | $f'(x^{*})=\dots=f^{(n-1)}(x^{*})=0,\ f^{(n)}(x^{*})\ne0$ | $n$: order of first nonzero derivative | Classifying a stationary point (1 variable) | $n$ even & $f^{(n)}>0$→min; $n$ even & $f^{(n)}<0$→max; $n$ odd→neither |
-| 8 | $f(x^{*}+h)-f(x^{*})=\frac{h^n}{n!}f^{(n)}(x^{*}+\theta h)$ | $\theta\in(0,1)$ | Proof of formula 7 | Taylor remainder isolates the deciding term |
-| 9 | $\nabla f(\mathbf{x}^{*})=0$ | $\nabla f$: gradient vector | Interior point, partials exist, local extremum | Necessary condition (multivariable) |
-| 10 | $H(\mathbf{x}^{*})=\nabla^2f(\mathbf{x}^{*})\succ0$ | $H$: Hessian matrix | Stationary point | Sufficient condition for local min |
+| 5 | $f(x^{\ast})\le f(x^{\ast}+h)$, small $h$ | $x^{\ast}$: candidate point | Local min test (1 variable) | Definition of local minimum |
+| 6 | $f'(x^{\ast})=0$ | $f'$: first derivative | Interior point, $f'$ exists, local extremum | Necessary condition (1 variable) |
+| 7 | $f'(x^{\ast})=\dots=f^{(n-1)}(x^{\ast})=0,\ f^{(n)}(x^{\ast})\ne0$ | $n$: order of first nonzero derivative | Classifying a stationary point (1 variable) | $n$ even & $f^{(n)}>0$→min; $n$ even & $f^{(n)}<0$→max; $n$ odd→neither |
+| 8 | $f(x^{\ast}+h)-f(x^{\ast})=\frac{h^n}{n!}f^{(n)}(x^{\ast}+\theta h)$ | $\theta\in(0,1)$ | Proof of formula 7 | Taylor remainder isolates the deciding term |
+| 9 | $\nabla f(\mathbf{x}^{\ast})=0$ | $\nabla f$: gradient vector | Interior point, partials exist, local extremum | Necessary condition (multivariable) |
+| 10 | $H(\mathbf{x}^{\ast})=\nabla^2f(\mathbf{x}^{\ast})\succ0$ | $H$: Hessian matrix | Stationary point | Sufficient condition for local min |
 | 11 | $\mathbf{h}^TA\mathbf{h}>0\ \forall \mathbf{h}\ne0$ | $A$: symmetric matrix | Testing definiteness | Definition of positive definite |
 | 12 | $\min_{\mathbf{x}}\mathbf{C}^T\mathbf{x}$ s.t. $A\mathbf{x}=\mathbf{b}$ | $\mathbf{C},A,\mathbf{b}$: fixed data | Linear Programming | All functions affine |
 | 13 | $f(\mathbf{x})=a+\mathbf{b}^T\mathbf{x}+\mathbf{x}^TH\mathbf{x}$ | $a,\mathbf{b},H$: fixed data | Quadratic Optimization | Quadratic objective, affine constraints |
@@ -1266,7 +1266,7 @@ $$
 - **Feasible region / feasible set ($F$):** The set of all points satisfying every constraint of the problem.
 - **Feasible solution:** Any point $\mathbf{x}\in F$.
 - **Geometric Programming (GP):** An optimization problem whose objective and constraints are posynomial functions.
-- **Global (absolute) minimum:** A point $x^{*}$ with $f(x^{*})\le f(x)$ for all $x$ in the domain.
+- **Global (absolute) minimum:** A point $x^{\ast}$ with $f(x^{\ast})\le f(x)$ for all $x$ in the domain.
 - **Gradient ($\nabla f$):** The vector of all first partial derivatives of a multivariable function; points in the direction of steepest ascent.
 - **Hessian ($\nabla^2f$):** The matrix of all second partial derivatives of a multivariable function; encodes local curvature.
 - **Inactive constraint:** An inequality constraint $g_j(\mathbf{x})<0$ at a feasible point (strict slack remains).
@@ -1277,14 +1277,14 @@ $$
 - **Lagrange multipliers:** The named (but, in this chapter, unelaborated) method for solving equality-constrained optimization problems.
 - **Level curve / level set / contour:** The set of points $\{\mathbf{x}: f(\mathbf{x})=C\}$ sharing the same objective value $C$.
 - **Linear Programming (LP):** An optimization problem in which the objective and all constraints are affine functions.
-- **Local (relative) minimum:** A point $x^{*}$ with $f(x^{*})\le f(x^{*}+h)$ for all sufficiently small $h$.
+- **Local (relative) minimum:** A point $x^{\ast}$ with $f(x^{\ast})\le f(x^{\ast}+h)$ for all sufficiently small $h$.
 - **Mathematical Programming (MP):** Another name for optimization; a subfield of Operations Research.
 - **Multi-objective optimization:** A problem with more than one objective function to be satisfied simultaneously, often combined via a weighted sum or analyzed via a Pareto front.
-- **Necessary condition:** A condition that must hold at any local extremum (e.g., $f'(x^{*})=0$), but whose satisfaction alone does not guarantee an extremum.
+- **Necessary condition:** A condition that must hold at any local extremum (e.g., $f'(x^{\ast})=0$), but whose satisfaction alone does not guarantee an extremum.
 - **Negative definite (ND) matrix:** A symmetric matrix $A$ with $\mathbf{h}^TA\mathbf{h}<0$ for all $\mathbf{h}\ne0$ (equivalently, all eigenvalues negative).
 - **Operations Research (OR):** The broader discipline encompassing mathematical programming, stochastic process techniques, and statistical methods.
-- **Optimal point / optimal solution ($\mathbf{x}^{*}$):** A feasible point achieving the optimal (best) objective value $p^{*}$.
-- **Optimal value ($p^{*}$):** The best (infimum) achievable value of the objective function over the feasible set.
+- **Optimal point / optimal solution ($\mathbf{x}^{\ast}$):** A feasible point achieving the optimal (best) objective value $p^{\ast}$.
+- **Optimal value ($p^{\ast}$):** The best (infimum) achievable value of the objective function over the feasible set.
 - **Optimization:** The science of efficiently allocating limited resources to meet objectives subject to constraints; the act of obtaining the best result under given circumstances.
 - **Pareto front:** The set of non-dominated solutions in a multi-objective optimization problem, among which improving one objective necessarily worsens another.
 - **Parameter:** A fixed, given quantity in a problem's data, as opposed to a decision variable.
@@ -1305,7 +1305,7 @@ $$
 
 1. Write the general constrained optimization problem in full mathematical notation, labeling every symbol.
 2. What is the difference between the feasible set $F$ and the optimal set $X_{opt}$?
-3. Prove that $f'(x^{*})=0$ is necessary for a single-variable local minimum at an interior point where the derivative exists.
+3. Prove that $f'(x^{\ast})=0$ is necessary for a single-variable local minimum at an interior point where the derivative exists.
 4. Give a function for which the necessary condition holds at a point that is *not* a local extremum, and explain why.
 5. State the multivariable necessary condition and sketch its proof by contradiction.
 6. Given the Hessian $H=\begin{pmatrix}-2&0\\0&-5\end{pmatrix}$ at a stationary point, classify the point.
@@ -1317,10 +1317,10 @@ $$
 ## Answer Key
 
 1. See Concept 5, "Definition" and "Mathematical Meaning" table.
-2. $F$ is the set of *all* feasible points (satisfying the constraints); $X_{opt}\subseteq F$ is the (possibly empty, singleton, or larger) subset of feasible points that additionally achieve the optimal value $p^{*}$.
+2. $F$ is the set of *all* feasible points (satisfying the constraints); $X_{opt}\subseteq F$ is the (possibly empty, singleton, or larger) subset of feasible points that additionally achieve the optimal value $p^{\ast}$.
 3. See Concept 8's full 5-step proof.
 4. $f(x)=x^4-4x^3+6x^2-4x$ or, more simply, $f(x)=x^3$ (as in the lecture): $f'(0)=0$ but $x=0$ is an inflection point, not an extremum, because the first nonzero derivative ($f'''(0)$) has odd order.
-5. See Concept 11's full 4-step proof (Taylor expansion → dominance of linear term → contradiction via a decreasing direction → conclude $\nabla f(\mathbf{x}^{*})=0$).
+5. See Concept 11's full 4-step proof (Taylor expansion → dominance of linear term → contradiction via a decreasing direction → conclude $\nabla f(\mathbf{x}^{\ast})=0$).
 6. Both diagonal entries (eigenvalues) are negative → **negative definite** → the point is a **local maximum**.
 7. $f'(x)=4x^3=0\Rightarrow x=0$. $f''(0)=0$; $f'''(0)=0$; $f^{(4)}(x)=24$, so $f^{(4)}(0)=24\ne0$, order $n=4$ (even), and $f^{(4)}(0)>0$ → **local minimum** at $x=0$ (and, since $f(x)=x^4\ge0=f(0)$ everywhere, it is also the **global** minimum).
 8. Because the decision was among a small, finite, non-continuous set of discrete travel plans, not a continuously variable quantity — there was no "derivative" to set to zero; instead, every alternative's cost was simply computed and compared (Concept 2, Example 1).
@@ -1334,7 +1334,7 @@ $$
 This chapter established the complete conceptual and mathematical scaffolding for the course:
 
 - **What optimization is** (efficient allocation under constraints, part of Operations Research) and **why it is everywhere** (engineering, finance, embedded systems, and — repeatedly emphasized through the chapter's own examples — machine learning).
-- **How to state any optimization problem formally**, using decision variables, an objective function, and equality/inequality constraints, all defined over a feasible set $F$, with well-defined notions of optimal value $p^{*}$ and optimal point(s) $X_{opt}$.
+- **How to state any optimization problem formally**, using decision variables, an objective function, and equality/inequality constraints, all defined over a feasible set $F$, with well-defined notions of optimal value $p^{\ast}$ and optimal point(s) $X_{opt}$.
 - **How to test whether a candidate point is actually optimal**, using the necessary condition (zero derivative/gradient) to find *candidates*, and the sufficient condition (sign of a higher derivative, or definiteness of the Hessian) to *classify* each candidate as a minimum, maximum, saddle point, or inflection point — with full proofs for both the single-variable and multivariable cases.
 - **How optimization problems are classified** by the mathematical structure of their objective and constraints (LP, convex, quadratic, geometric programming, integer, stochastic, multi-objective, and modern heuristic methods) — a taxonomy that will determine which solution technique (developed in later lectures: simplex, Lagrange multipliers, KKT, etc.) applies to a given problem.
 
